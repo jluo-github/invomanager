@@ -1,6 +1,17 @@
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -24,12 +35,44 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang='en' suppressHydrationWarning>
+        <head>
+          <link
+            rel='icon'
+            href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>'
+          />
+        </head>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] max-w-screen-2xl min-h-screen w-full font-[family-name:var(--font-geist-sans)] dark:bg-[#110F21]`}>
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='dark'
+            enableSystem
+            disableTransitionOnChange>
+            <Navbar />
+
+            <main className='w-[90%] mx-auto  '> {children}</main>
+
+            <Footer />
+          </ThemeProvider>
+          <Toaster
+            theme='dark'
+            position='bottom-right'
+            toastOptions={{
+              unstyled: true,
+              classNames: {
+                toast: "bg-violet-400",
+                title: "text-white",
+                description: "text-white",
+                actionButton: "bg-zinc-400",
+                cancelButton: "bg-red-400",
+                closeButton: "bg-red-400",
+              },
+            }}
+          />
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

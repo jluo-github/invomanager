@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Please visit []() for details.
 
-## Getting Started
+### shadcn
 
-First, run the development server:
+```
+npx shadcn@latest init -d
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### dark mode
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install next-themes
+npx shadcn@latest add dropdown-menu
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
 
-## Learn More
+### shadcn components
 
-To learn more about Next.js, take a look at the following resources:
+```
+npx shadcn@latest add button table toast sonner alert-dialog dialog avatar card input label textarea separator skeleton menubar
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+npx shadcn@latest add badge
+npx shadcn@latest add  
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
+npx shadcn@latest add
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+ #8062F3 is: hsl(253 85% 67%)
+253, 85%, 67%
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### toast sonner
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+npx shadcn@latest add toast sonner
+
+```
+
+### lucide-react
+
+```
+npm i lucide-react
+
+```
+
+### xato drizzle db
+
+[xato](https://app.xata.io/workspaces/J-L-s-workspace-s1u9qf/dbs/invoice-app:us-west-2/branches/main)
+
+[xato-drizzle](https://xata.io/docs/integrations/drizzle)
+
+```
+npm i drizzle-orm pg
+
+npm i -D drizzle-kit @types/pg
+
+npm i dotenv --save
+
+
+<!-- Generate migrations: -->
+npx drizzle-kit generate
+
+<!-- Apply migrations: -->
+npx drizzle-kit migrate
+
+```
+
+### next rc
+
+```
+npm install next@rc react@rc react-dom@rc --legacy-peer-deps
+
+```
+
+### next@canary
+
+```
+npm i next@canary --legacy-peer-deps
+
+```
+
+### clerk
+
+```
+npm install @clerk/nextjs
+
+
+
+```
+
+###
+
+```
+npm install @clerk/elements
+
+```
+
+###
+
+```
+
+
+```
