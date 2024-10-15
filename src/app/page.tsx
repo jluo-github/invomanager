@@ -1,12 +1,13 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
+import React from "react";
 
 export default function Home() {
   const { userId } = auth();
 
   return (
-    <main className='flex flex-col justify-center h-full gap-12 text-center max-w-5xl'>
+    <main className='flex mx-auto flex-col justify-center h-full gap-12 text-center max-w-5xl'>
       <h1 className='text-5xl max-w-5xl'>InvoManager</h1>
       <div className=''>
         <Button size='lg' asChild>
