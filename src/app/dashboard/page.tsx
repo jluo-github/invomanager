@@ -1,3 +1,6 @@
+import MyPagination from "@/components/MyPagination";
+import StatusBadge from "@/components/StatusBadge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -7,23 +10,53 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { db } from "@/db";
+import { Customers, Invoices } from "@/db/schema";
+import { auth } from "@clerk/nextjs/server";
+import { count, eq } from "drizzle-orm";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
-import { db } from "@/db";
-import { Invoices } from "@/db/schema";
-import { auth } from "@clerk/nextjs/server";
-import { eq } from "drizzle-orm";
 import { toast } from "sonner";
 
-const DashboardPage = async () => {
+export const PER_PAGE = 3;
+
+const DashboardPage = async ({ searchParams }: { searchParams: { page: string } }) => {
+  const currentPage = parseInt(searchParams.page) || 1;
+  const offset = PER_PAGE * (currentPage - 1);
+
   const { userId } = auth();
   if (!userId) {
     toast.error("Unauthorized");
-    return;
+    return null;
   }
-  const results = await db.select().from(Invoices).where(eq(Invoices.userId, userId));
+
+  // fetch invoices
+  const results = await db
+    .select()
+    .from(Invoices)
+    .where(eq(Invoices.userId, userId))
+    .innerJoin(Customers, eq(Invoices.customerId, Customers.id))
+    .limit(PER_PAGE)
+    .offset(offset);
+
+  if (results.length === 0) {
+    toast.error("No invoices found");
+    return null;
+  }
+
+  // fetch total invoices count
+  const invoiceCounts: { total: number }[] = await db
+    .select({ total: count() })
+    .from(Invoices)
+    .where(eq(Invoices.userId, userId))
+    .innerJoin(Customers, eq(Invoices.customerId, Customers.id));
+
+  const { total } = invoiceCounts[0];
+  const totalPages = Math.ceil(total / PER_PAGE);
+
+  const invoices = results.map(({ invoices, customers }) => {
+    return { ...invoices, customer: customers };
+  });
 
   return (
     <div className='flex flex-col gap-12 my-8'>
@@ -59,48 +92,51 @@ const DashboardPage = async () => {
 
         {/* table body */}
         <TableBody>
-          {results.map((invoice) => (
-            <TableRow key={invoice.id} className='text-xs md:text-base'>
-              <TableCell className='text-left p-0'>
-                <Link
-                  href={`/invoices/${invoice.id}`}
-                  className='font-semibold py-3 block'>
-                  {new Date(invoice.crateTs).toLocaleDateString()}
-                </Link>{" "}
-              </TableCell>
-              <TableCell className='text-left p-0'>
-                <Link
-                  href={`/invoices/${invoice.id}`}
-                  className='font-semibold py-3 block'>
-                  invoice.name
-                </Link>
-              </TableCell>
-              <TableCell className='text-left p-0'>
-                <Link href={`/invoices/${invoice.id}`} className='py-3 block'>
-                  invoice.email
-                </Link>
-              </TableCell>
-              <TableCell className='text-center p-0'>
-                <Link
-                  href={`/invoices/${invoice.id}`}
-                  className='font-semibold py-3 block'>
-                  <Badge className='text-xs md:text-base rounded-3xl'>
-                    {invoice.status}
-                  </Badge>
-                </Link>
-              </TableCell>
-              <TableCell className='text-right p-0'>
-                <Link
-                  href={`/invoices/${invoice.id}`}
-                  className='font-semibold py-3 block'>
-                  {" "}
-                  ${(invoice.value / 100).toFixed(2)}
-                </Link>
-              </TableCell>
-            </TableRow>
-          ))}
+          {invoices.map((invoice) => {
+            return (
+              <TableRow key={invoice.id} className='text-xs md:text-base'>
+                <TableCell className='text-left p-0'>
+                  <Link
+                    href={`/invoices/${invoice.id}`}
+                    className='font-semibold py-3 block'>
+                    {new Date(invoice.crateTs).toLocaleDateString()}
+                  </Link>{" "}
+                </TableCell>
+                <TableCell className='text-left p-0'>
+                  <Link
+                    href={`/invoices/${invoice.id}`}
+                    className='font-semibold py-3 block'>
+                    {invoice.customer.name}
+                  </Link>
+                </TableCell>
+                <TableCell className='text-left p-0'>
+                  <Link href={`/invoices/${invoice.id}`} className='py-3 block'>
+                    {invoice.customer.email}
+                  </Link>
+                </TableCell>
+                <TableCell className='text-center p-0'>
+                  <Link
+                    href={`/invoices/${invoice.id}`}
+                    className='font-semibold py-3 block'>
+                    <StatusBadge otherClassName='text-xs md:text-sm' invoice={invoice} />
+                  </Link>
+                </TableCell>
+                <TableCell className='text-right p-0'>
+                  <Link
+                    href={`/invoices/${invoice.id}`}
+                    className='font-semibold py-3 block'>
+                    {" "}
+                    ${(invoice.value / 100).toFixed(2)}
+                  </Link>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
       </Table>
+
+      {/* pagination */}
+      <MyPagination currentPage={currentPage} totalPages={totalPages} />
     </div>
   );
 };

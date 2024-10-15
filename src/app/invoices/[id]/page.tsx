@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { Invoices } from "@/db/schema";
+import { Customers, Invoices } from "@/db/schema";
 
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
@@ -7,7 +7,7 @@ import { and, eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { toast } from "sonner";
 
-import Invoice from "@/components/Invoice";
+import Invoice from "@/app/invoices/[id]/Invoice";
 
 type Props = {
   params: {
@@ -31,6 +31,7 @@ const SingleInvoice = async ({ params }: Props) => {
   const [result] = await db
     .select()
     .from(Invoices)
+    .innerJoin(Customers, eq(Invoices.customerId, Customers.id))
     .where(and(eq(Invoices.id, Number(id)), eq(Invoices.userId, userId)))
     .limit(1);
 
@@ -38,6 +39,12 @@ const SingleInvoice = async ({ params }: Props) => {
     notFound();
   }
 
-  return <Invoice result={result} id={id} />;
+  const invoices = {
+    ...result.invoices,
+    customer: result.customers,
+  };
+
+  return <Invoice result={invoices} id={id} />;
 };
+
 export default SingleInvoice;

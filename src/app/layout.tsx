@@ -2,16 +2,10 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -44,7 +38,7 @@ export default function RootLayout({
           />
         </head>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] max-w-screen-2xl min-h-screen w-full font-[family-name:var(--font-geist-sans)] dark:bg-[#110F21]`}>
+          className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] max-w-screen-2xl min-h-screen w-full font-[family-name:var(--font-geist-sans)] mx-auto `}>
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'
@@ -52,25 +46,11 @@ export default function RootLayout({
             disableTransitionOnChange>
             <Navbar />
 
-            <main className='w-[90%] mx-auto  '> {children}</main>
+            <main className='w-[90%] mx-auto'> {children}</main>
 
             <Footer />
           </ThemeProvider>
-          <Toaster
-            theme='dark'
-            position='bottom-right'
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                toast: "bg-violet-400",
-                title: "text-white",
-                description: "text-white",
-                actionButton: "bg-zinc-400",
-                cancelButton: "bg-red-400",
-                closeButton: "bg-red-400",
-              },
-            }}
-          />
+          <Toaster theme='dark' position='bottom-right' />
         </body>
       </html>
     </ClerkProvider>

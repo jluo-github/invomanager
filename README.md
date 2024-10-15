@@ -21,7 +21,7 @@ npx shadcn@latest add dropdown-menu
 npx shadcn@latest add button table toast sonner alert-dialog dialog avatar card input label textarea separator skeleton menubar
 
 npx shadcn@latest add badge
-npx shadcn@latest add  
+npx shadcn@latest add pagination
 npx shadcn@latest add
 npx shadcn@latest add
 npx shadcn@latest add
@@ -103,9 +103,29 @@ npm install @clerk/elements
 
 ```
 
-###
+### stripe
+[stripe](https://github.com/stripe/stripe-node)
+[checkout](https://docs.stripe.com/checkout/quickstart)
+[after-payment](https://docs.stripe.com/payments/checkout/custom-success-page)
+
+```
+npm install stripe --save
 
 ```
 
+### resend email
+[react-email](https://demo.react.email/preview/magic-links/linear-login-code?view=source)
+```
+npm i resend
+npx create-email@latest
+npm install resend @react-email/components
+
+```
+
+### html2pdf
+[pdf](https://ekoopmans.github.io/html2pdf.js/)
+
+```
+npm install --save html2pdf.js
 
 ```
