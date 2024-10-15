@@ -97,6 +97,7 @@ npm install @clerk/nextjs
 ```
 
 ### @clerk/elements
+[shadcn-clerk](https://clerk.com/docs/customization/elements/examples/shadcn-ui)
 
 ```
 npm install @clerk/elements

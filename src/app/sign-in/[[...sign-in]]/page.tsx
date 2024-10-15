@@ -24,11 +24,11 @@ export default function SignInPage() {
           {(isGlobalLoading) => (
             <>
               <SignIn.Step name='start'>
-                <Card className='w-full sm:w-96 shadow-xl shadow-violet-400/[0.5]'>
-                  <CardHeader>
+                <Card className='w-full gap-y-8 my-8 sm:w-96 shadow-xl shadow-violet-400/[0.5]'>
+                  <CardHeader className='my-8'>
                     <CardTitle className=''>
                       Sign in to{" "}
-                      <span className='text-violet-500 dark:text-primary'>
+                      <span className='text-violet-500 dark:text-violet-400'>
                         InvoManager
                       </span>
                     </CardTitle>
@@ -83,23 +83,23 @@ export default function SignInPage() {
                       </Clerk.Connection>
                     </div>
 
-                    <p className='flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border'>
+                    <p className='flex items-center gap-x-3 text-sm md:text-base text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border'>
                       or
                     </p>
 
                     {/* email */}
-                    <Clerk.Field name='identifier' className='space-y-2'>
+                    <Clerk.Field name='identifier' className='space-y-8'>
                       <Clerk.Label asChild>
                         <Label>Email address</Label>
                       </Clerk.Label>
                       <Clerk.Input type='email' required asChild>
-                        <Input />
+                        <Input className='dark:border-violet-600 border-violet-300' />
                       </Clerk.Input>
                       <Clerk.FieldError className='block text-sm text-destructive' />
                     </Clerk.Field>
                   </CardContent>
                   <CardFooter>
-                    <div className='grid w-full gap-y-4'>
+                    <div className='grid w-full gap-y-8 mb-4'>
                       <SignIn.Action submit asChild>
                         <Button disabled={isGlobalLoading}>
                           <Clerk.Loading>
@@ -115,7 +115,11 @@ export default function SignInPage() {
                       </SignIn.Action>
 
                       <Button variant='link' size='sm' asChild>
-                        <Link href='/sign-up'>Don&apos;t have an account? Sign up</Link>
+                        <Link
+                          className='text-violet-600 dark:text-violet-400 md:text-base'
+                          href='/sign-up'>
+                          Don&apos;t have an account? Sign up
+                        </Link>
                       </Button>
                     </div>
                   </CardFooter>
@@ -166,13 +170,12 @@ export default function SignInPage() {
                 <SignIn.Strategy name='password'>
                   <Card className='w-full sm:w-96'>
                     <CardHeader>
-                      <CardTitle>Check your email</CardTitle>
-                      <CardDescription>
-                        Enter the verification code sent to your email
-                      </CardDescription>
-                      <p className='text-sm text-muted-foreground'>
+                      <CardTitle>
+                        {" "}
                         Welcome back <SignIn.SafeIdentifier />
-                      </p>
+                      </CardTitle>
+                      <CardDescription></CardDescription>
+                      <p className='text-sm text-muted-foreground'></p>
                     </CardHeader>
                     <CardContent className='grid gap-y-4'>
                       <Clerk.Field name='password' className='space-y-2'>
@@ -180,13 +183,13 @@ export default function SignInPage() {
                           <Label>Password</Label>
                         </Clerk.Label>
                         <Clerk.Input type='password' asChild>
-                          <Input />
+                          <Input className='dark:border-violet-600 border-violet-300' />
                         </Clerk.Input>
                         <Clerk.FieldError className='block text-sm text-destructive' />
                       </Clerk.Field>
                     </CardContent>
                     <CardFooter>
-                      <div className='grid w-full gap-y-4'>
+                      <div className='grid w-full gap-y-8 my-8'>
                         <SignIn.Action submit asChild>
                           <Button disabled={isGlobalLoading}>
                             <Clerk.Loading>
@@ -201,7 +204,11 @@ export default function SignInPage() {
                           </Button>
                         </SignIn.Action>
                         <SignIn.Action navigate='choose-strategy' asChild>
-                          <Button type='button' size='sm' variant='link'>
+                          <Button
+                            className='text-violet-600 dark:text-violet-400 md:text-base '
+                            type='button'
+                            size='sm'
+                            variant='link'>
                             Use another method
                           </Button>
                         </SignIn.Action>

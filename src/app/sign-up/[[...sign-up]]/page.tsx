@@ -24,8 +24,8 @@ export default function SignUpPage() {
           {(isGlobalLoading) => (
             <>
               <SignUp.Step name='start'>
-                <Card className='w-full sm:w-96 shadow-xl shadow-violet-400/[0.5]'>
-                  <CardHeader>
+                <Card className='w-full gap-y-8 sm:w-96 shadow-xl shadow-violet-400/[0.5]'>
+                  <CardHeader className='my-8'>
                     <CardTitle>Create your account</CardTitle>
                     <CardDescription>
                       Welcome! Please fill in the details to get started.
@@ -74,15 +74,15 @@ export default function SignUpPage() {
                         </Button>
                       </Clerk.Connection>
                     </div>
-                    <p className='flex items-center gap-x-3 text-sm text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border'>
+                    <p className='flex items-center gap-x-3 text-sm md:text-base text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border'>
                       or
                     </p>
-                    <Clerk.Field name='emailAddress' className='space-y-2'>
+                    <Clerk.Field name='emailAddress' className='space-y-8'>
                       <Clerk.Label asChild>
                         <Label>Email address</Label>
                       </Clerk.Label>
                       <Clerk.Input type='email' required asChild>
-                        <Input />
+                        <Input className='dark:border-violet-600 border-violet-300' />
                       </Clerk.Input>
                       <Clerk.FieldError className='block text-sm text-destructive' />
                     </Clerk.Field>
@@ -91,13 +91,13 @@ export default function SignUpPage() {
                         <Label>Password</Label>
                       </Clerk.Label>
                       <Clerk.Input type='password' required asChild>
-                        <Input />
+                        <Input className='dark:border-violet-600 border-violet-300' />
                       </Clerk.Input>
                       <Clerk.FieldError className='block text-sm text-destructive' />
                     </Clerk.Field>
                   </CardContent>
                   <CardFooter>
-                    <div className='grid w-full gap-y-4'>
+                    <div className='grid w-full gap-y-8 mb-4'>
                       <SignUp.Captcha className='empty:hidden' />
                       <SignUp.Action submit asChild>
                         <Button disabled={isGlobalLoading}>
@@ -113,7 +113,11 @@ export default function SignUpPage() {
                         </Button>
                       </SignUp.Action>
                       <Button variant='link' size='sm' asChild>
-                        <Link href='/sign-in'>Already have an account? Sign in</Link>
+                        <Link
+                          className='text-violet-600 dark:text-violet-400 md:text-base'
+                          href='/sign-in'>
+                          Already have an account? Sign in
+                        </Link>
                       </Button>
                     </div>
                   </CardFooter>
