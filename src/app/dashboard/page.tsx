@@ -46,6 +46,7 @@ const DashboardPage = async ({ searchParams }: { searchParams: { page: string } 
   if (!results || results.length === 0) {
     return <p className='my-8'>No invoices found.</p>;
   }
+  // console.log("results", results);
 
   // fetch total invoices count
   const invoiceCounts: { total: number }[] = await db

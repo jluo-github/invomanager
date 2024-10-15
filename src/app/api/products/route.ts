@@ -12,9 +12,9 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const result = await db.update(Products).set({ name }).where(eq(Products.id, id));
+    const result = await db.update(Products).set({ name }).where(eq(Products.id, id)).returning();
 
-    return NextResponse.json({ message: "DB updated successfully", result });
+    return NextResponse.json({ message: "DB updated successfully", name: result[0]?.name });
   } catch (error) {
     console.error("Error updating DB record:", error);
     return NextResponse.json({ error: "Error updating DB record" }, { status: 500 });

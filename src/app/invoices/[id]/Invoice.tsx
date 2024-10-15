@@ -50,9 +50,11 @@ const Invoice = ({
   }
 
   return (
-    <div id='invoice' className='flex flex-col gap-12 my-8 '>
+    <div
+      id='invoice'
+      className='grid grid-cols-1 place-items-center md:grid-cols-2 gap-8 my-8  max-w-2xl w-full max-auto'>
       {/* heading */}
-      <div className='flex items-center md:justify-between flex-col md:flex-row '>
+      <div className='flex flex-col md:flex-row items-center  gap-8'>
         {" "}
         <h1 className='text-2xl mb-4 font-semibold md:text-3xl flex items-center gap-4'>
           Invoice details
@@ -61,93 +63,98 @@ const Invoice = ({
             {result.status}
           </Badge>
         </h1>
-        <div className='flex gap-4 mb-12 md:mb-8' data-html2canvas-ignore>
-          {/* dropdown menu */}
+      </div>
+
+      {/* actions */}
+      <div
+        className='flex gap-4 mb-12 md:mb-8 md:w-1/2 mx-auto  '
+        data-html2canvas-ignore>
+        {/* dropdown menu */}
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant='outline' className=' mx-auto'>
+              Change Status
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className='p-0'>
+            {statusData.map((s) => (
+              <DropdownMenuItem key={s.name} asChild>
+                <form action={updateStatus}>
+                  <input type='hidden' name='id' value={id} />
+                  <input type='hidden' name='status' value={s.name} />
+                  <button className='w-full'>{s.name}</button>
+                </form>
+              </DropdownMenuItem>
+            ))}{" "}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* delete dialog */}
+
+        <Dialog>
+          {/* delete menu */}
           <DropdownMenu>
+            {/* dropdown trigger */}
             <DropdownMenuTrigger asChild>
               <Button variant='outline' className=' mx-auto'>
-                Change Status
+                <span className=' '>More Options</span>
               </Button>
             </DropdownMenuTrigger>
+            {/* dialog trigger */}
             <DropdownMenuContent className='p-0'>
-              {statusData.map((s) => (
-                <DropdownMenuItem key={s.name} asChild>
-                  <form action={updateStatus}>
-                    <input type='hidden' name='id' value={id} />
-                    <input type='hidden' name='status' value={s.name} />
-                    <button className='w-full'>{s.name}</button>
-                  </form>
-                </DropdownMenuItem>
-              ))}{" "}
+              {/* delete */}
+              <DropdownMenuItem>
+                {/* dialog trigger */}
+                <DialogTrigger asChild>
+                  <button className='w-full flex gap-4 items-center justify-start'>
+                    <Trash2 className='w-6 h-6' /> Delete
+                  </button>
+                </DialogTrigger>
+              </DropdownMenuItem>
+              {/* pay */}
+              <DropdownMenuItem>
+                <Link
+                  href={`/invoices/${id}/payment`}
+                  className='w-full flex gap-4 items-center justify-start'>
+                  <BadgeDollarSign className='w-6 h-6' /> Pay
+                </Link>
+              </DropdownMenuItem>
+              {/* pdf */}
+              <DropdownMenuItem>
+                <button
+                  className='w-full flex gap-4 items-center justify-start text-xs'
+                  onClick={handleClick}>
+                  <Download className='w-6 h-6' />
+                  Download PDF
+                </button>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* delete dialog */}
-          <Dialog>
-            {/* delete menu */}
-            <DropdownMenu>
-              {/* dropdown trigger */}
-              <DropdownMenuTrigger asChild>
-                <Button variant='outline' className=' mx-auto'>
-                  <span className=' '>More Options</span>
-                </Button>
-              </DropdownMenuTrigger>
-              {/* dialog trigger */}
-              <DropdownMenuContent className='p-0'>
-                {/* delete */}
-                <DropdownMenuItem>
-                  {/* dialog trigger */}
-                  <DialogTrigger asChild>
-                    <button className='w-full flex gap-4 items-center justify-start'>
-                      <Trash2 className='w-6 h-6' /> Delete
-                    </button>
-                  </DialogTrigger>
-                </DropdownMenuItem>
-                {/* pay */}
-                <DropdownMenuItem>
-                  <Link
-                    href={`/invoices/${id}/payment`}
-                    className='w-full flex gap-4 items-center justify-start'>
-                    <BadgeDollarSign className='w-6 h-6' /> Pay
-                  </Link>
-                </DropdownMenuItem>
-                {/* pdf */}
-                <DropdownMenuItem>
-                  <button
-                    className='w-full flex gap-4 items-center justify-start text-xs'
-                    onClick={handleClick}>
-                    <Download className='w-6 h-6' />
-                    Download PDF
-                  </button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DialogContent>
-              <DialogHeader className='gap-4'>
-                <DialogTitle>Delete Invoice?</DialogTitle>
-                <DialogDescription>
-                  This action cannot be undone. This will permanently delete this invoice
-                  and remove the data from our servers.
-                </DialogDescription>
-                <DialogFooter>
-                  <form action={deleteInvoice}>
-                    <input type='hidden' name='id' value={id} />
-                    <Button
-                      variant='destructive'
-                      className='w-full flex gap-4 items-center justify-center'>
-                      <Trash2 className='w-6 h-6' /> Delete
-                    </Button>
-                  </form>
-                </DialogFooter>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-        </div>
+          <DialogContent>
+            <DialogHeader className='gap-4'>
+              <DialogTitle>Delete Invoice?</DialogTitle>
+              <DialogDescription>
+                This action cannot be undone. This will permanently delete this invoice
+                and remove the data from our servers.
+              </DialogDescription>
+              <DialogFooter>
+                <form action={deleteInvoice}>
+                  <input type='hidden' name='id' value={id} />
+                  <Button
+                    variant='destructive'
+                    className='w-full flex gap-4 items-center justify-center'>
+                    <Trash2 className='w-6 h-6' /> Delete
+                  </Button>
+                </form>
+              </DialogFooter>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       </div>
 
       {/* invoice */}
-
       <div className='flex flex-col gap-4 items-start  '>
         <ul className='grid gap-2'>
           <li className='flex gap-4'>

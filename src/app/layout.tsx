@@ -41,7 +41,7 @@ export default function RootLayout({
           />
         </head>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] max-w-screen-2xl min-h-screen w-full font-[family-name:var(--font-geist-sans)] mx-auto `}>
+          className={`${geistSans.variable} ${geistMono.variable} antialiased grid grid-rows-[auto_1fr_auto] min-h-screen w-full font-[family-name:var(--font-geist-sans)] mx-auto `}>
           <ThemeProvider
             attribute='class'
             defaultTheme='dark'
@@ -49,7 +49,7 @@ export default function RootLayout({
             disableTransitionOnChange>
             <Navbar />
 
-            <main className='w-[90%] mx-auto'> {children}</main>
+            <main className='w-[90%] mx-auto max-w-screen-2xl'> {children}</main>
 
             <Footer />
           </ThemeProvider>
