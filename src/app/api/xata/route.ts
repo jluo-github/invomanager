@@ -3,7 +3,7 @@ import { Products } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function PUT(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest, res: NextResponse) {
   const id = 1;
   const name = `CuteCat-${Math.ceil(Math.random() * 999)}`;
 
