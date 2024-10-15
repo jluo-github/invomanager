@@ -1,17 +1,17 @@
 import { db } from "@/db";
 import { Invoices } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function PATCH(req: NextRequest, res: NextResponse) {
   const id = 1;
   const description = `CuteCat-${Math.ceil(Math.random() * 999)}`;
-
+  const userId = "user_2ijHzZJKwzhbxR7qsaArpNeJ";
   try {
     const result = await db
       .update(Invoices)
       .set({ description })
-      .where(eq(Invoices.id, id));
+      .where(and(eq(Invoices.id, id), eq(Invoices.userId, userId)));
 
     return NextResponse.json({ message: "DB updated successfully", result });
   } catch (error) {
