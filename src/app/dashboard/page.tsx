@@ -16,9 +16,8 @@ import { auth } from "@clerk/nextjs/server";
 import { count, eq } from "drizzle-orm";
 import { CirclePlus } from "lucide-react";
 import Link from "next/link";
-import { toast } from "sonner";
 
-export const PER_PAGE = 3;
+export const PER_PAGE = 10;
 
 const DashboardPage = async ({ searchParams }: { searchParams: { page: string } }) => {
   const currentPage = parseInt(searchParams.page) || 1;
@@ -26,8 +25,7 @@ const DashboardPage = async ({ searchParams }: { searchParams: { page: string } 
 
   const { userId } = auth();
   if (!userId) {
-    toast.error("Unauthorized");
-    return null;
+    return <p className='my-8'>Unauthorized.</p>;
   }
 
   // fetch invoices

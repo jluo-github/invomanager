@@ -24,7 +24,7 @@ jobs:
       - name: Ping Db
         run: |
           curl -X POST https://invomanager.vercel.app/api/products \
-          -H "Authorization: Bearer ${{ secrets.XATA_API_KEY }}" \
-          -H "Content-Type: application/json"
+            -H "Authorization: Bearer ${{ secrets.XATA_API_KEY }}" \
+            -H "Content-Type: application/json"
       - name: Run tests
         run: npm test

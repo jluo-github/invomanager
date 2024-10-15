@@ -107,7 +107,7 @@ export async function deleteInvoice(formData: FormData) {
 
   await db.delete(Invoices).where(and(eq(Invoices.id, id), eq(Invoices.userId, userId)));
 
-  revalidatePath(`/invoices`);
+  revalidatePath(`/dashboard`);
   redirect(`/dashboard`);
 }
 
