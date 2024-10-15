@@ -8,6 +8,13 @@
       "when": 1728923099972,
       "tag": "0000_sweet_patriot",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1728967562260,
+      "tag": "0001_unknown_blade",
+      "breakpoints": true
     }
   ]
 }

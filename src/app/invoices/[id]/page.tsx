@@ -36,7 +36,7 @@ const SingleInvoice = async ({ params }: Props) => {
     .limit(1);
 
   if (!result) {
-    notFound();
+    return <p className='my-8'>No invoice found.</p>;
   }
 
   const invoices = {

@@ -26,3 +26,10 @@ export const Customers = pgTable("customers", {
   email: text("email").notNull(),
   userId: text("userId").notNull(),
 });
+
+// test-products
+export const Products = pgTable("products", {
+  id: serial("id").primaryKey(),
+
+  name: text("name").notNull(),
+});

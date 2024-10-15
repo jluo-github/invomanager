@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/db";
-import { Customers, Invoices, type Status } from "@/db/schema";
+import { Customers, Invoices, Products, type Status } from "@/db/schema";
 import InvoiceCreatedEmail from "@/emails/invoice-created";
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
@@ -16,6 +16,8 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 // stripe
 const stripe = new Stripe(process.env.STRIPE_API_SECRET!);
+
+// create invoice
 export async function createInvoice(formData: FormData) {
   // todo - remove this
   await new Promise((resolve) => setTimeout(resolve, 500));
@@ -157,4 +159,20 @@ export async function createPayment(formData: FormData) {
   }
 
   redirect(session.url);
+}
+
+// createProduct
+export async function createProduct(formData: FormData) {
+  const name = formData.get("name") as string;
+
+  const [product] = await db
+    .insert(Products)
+    .values({
+      name,
+    })
+    .returning({
+      id: Products.id,
+    });
+
+  revalidatePath("/products");
 }

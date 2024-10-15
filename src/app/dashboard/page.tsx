@@ -39,9 +39,8 @@ const DashboardPage = async ({ searchParams }: { searchParams: { page: string } 
     .limit(PER_PAGE)
     .offset(offset);
 
-  if (results.length === 0) {
-    toast.error("No invoices found");
-    return null;
+  if (!results || results.length === 0) {
+    return <p className='my-8'>No invoices found.</p>;
   }
 
   // fetch total invoices count
