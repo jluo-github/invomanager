@@ -9,6 +9,12 @@ export default function Home() {
   return (
     <main className='flex mx-auto flex-col justify-center h-full gap-12 text-center max-w-5xl'>
       <h1 className='text-5xl max-w-5xl'>InvoManager</h1>
+      <p className='text-lg w-2/3 mx-auto'>
+        InvoManager is a streamlined, user-friendly app for managing invoices efficiently.
+        It allows you to create, track, and manage invoices with ease, making it perfect
+        for businesses and freelancers looking for a simple yet powerful invoicing
+        solution.
+      </p>
       <div className=''>
         <Button size='lg' asChild>
           {userId ? (

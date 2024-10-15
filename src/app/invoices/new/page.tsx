@@ -39,26 +39,33 @@ const NewInvoice = () => {
           <Label htmlFor='name' className='block mb-2 font-semibold'>
             Billing Name
           </Label>
-          <Input name='name' id='name' type='text' className='mb-4' />
+          <Input name='name' id='name' type='text' className='mb-4' required />
         </div>
         <div className=''>
           <Label htmlFor='email' className='block mb-2 font-semibold'>
             Email
           </Label>
-          <Input name='email' id='email' type='text' className='mb-4' />
+          <Input name='email' id='email' type='email' className='mb-4' required />
         </div>
         <div className=''>
           <Label htmlFor='value' className='block mb-2 font-semibold'>
             Value
           </Label>
-          <Input name='value' id='value' type='text' className='mb-4' />
+          <Input
+            name='value'
+            id='value'
+            type='number'
+            step='any'
+            className='mb-4'
+            required
+          />
         </div>
 
         <div className=''>
           <Label htmlFor='description' className='block mb-2 font-semibold'>
             Description
           </Label>
-          <Textarea name='description' id='description' className='mb-4' />
+          <Textarea name='description' id='description' className='mb-4' required />
         </div>
 
         <div className='mx-auto w-full flex justify-center my-4'>

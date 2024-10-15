@@ -15,7 +15,13 @@ import { Customers, Invoices } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { count, eq } from "drizzle-orm";
 import { CirclePlus } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Dashboard",
+};
 
 export const PER_PAGE = 10;
 

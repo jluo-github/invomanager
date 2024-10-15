@@ -59,27 +59,12 @@ export async function createInvoice(formData: FormData) {
   console.log("results", results);
 
   // send email
-  // await resend.emails.send({
-  //   from: `InvoManager <${process.env.FROM_EMAIL}>`,
-  //   to: [email],
-  //   subject: "You Have a New Invoice",
-  //   react: InvoiceCreatedEmail({ invoiceId: results[0].id }),
-  // });
-  // send email
-  await resend.batch.send([
-    {
-      from: `InvoManager <${process.env.FROM_EMAIL}>`,
-      to: [email],
-      subject: "You Have a New Invoice",
-      react: InvoiceCreatedEmail({ invoiceId: results[0].id }),
-    },
-    {
-      from: `InvoManager <${process.env.FROM_EMAIL}>`,
-      to: [process.env.MY_EMAIL!],
-      subject: "Copy of the New Invoice",
-      react: InvoiceCreatedEmail({ invoiceId: results[0].id }),
-    },
-  ]);
+  await resend.emails.send({
+    from: `InvoManager <${process.env.FROM_EMAIL}>`,
+    to: [email],
+    subject: "You Have a New Invoice",
+    react: InvoiceCreatedEmail({ invoiceId: results[0].id }),
+  });
 
   redirect(`/invoices/${results[0].id}`);
 }

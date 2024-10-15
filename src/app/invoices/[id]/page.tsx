@@ -4,10 +4,15 @@ import { Customers, Invoices } from "@/db/schema";
 import { auth } from "@clerk/nextjs/server";
 import { and, eq } from "drizzle-orm";
 
-import { notFound } from "next/navigation";
 import { toast } from "sonner";
 
 import Invoice from "@/app/invoices/[id]/Invoice";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Invoice details",
+  description: "Invoice details",
+};
 
 type Props = {
   params: {
